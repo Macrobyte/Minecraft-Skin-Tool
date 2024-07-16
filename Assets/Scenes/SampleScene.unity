@@ -3989,6 +3989,7 @@ MonoBehaviour:
   toggleRotationButton: {fileID: 755406080}
   rotateLeftButton: {fileID: 4288962}
   rotateRightButton: {fileID: 2140347239}
+  watchSkinButton: {fileID: 96203990}
 --- !u!1 &1695420289
 GameObject:
   m_ObjectHideFlags: 0

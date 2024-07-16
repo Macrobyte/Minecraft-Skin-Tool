@@ -10,9 +10,12 @@ public class FileWatcher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fileWatcher.Path = Application.persistentDataPath + "/Skins"; ;
+        InitializeWatcher();
+    }
 
-        Debug.Log(fileWatcher.Path);
+
+    private void InitializeWatcher()
+    {
 
         fileWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.Size | NotifyFilters.Attributes;
 
@@ -23,15 +26,24 @@ public class FileWatcher : MonoBehaviour
         fileWatcher.EnableRaisingEvents = true;
     }
 
-
-    private void InitializeWatcher()
-    {
-
-    }
-
     private void OnChanged(object source, FileSystemEventArgs e)
     {
         Debug.Log("File: " + e.FullPath + " " + e.ChangeType);
+    }
+
+
+    public string BrowseFile()
+    {
+        string path = "";
+
+        path = UnityEditor.EditorUtility.OpenFilePanel("Select Skin", "", "png");
+
+        return path;
+    }
+
+    private void WatchFile(string path)
+    {
+        fileWatcher.Path = path;
     }
 
 
