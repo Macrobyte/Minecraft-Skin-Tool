@@ -8,6 +8,8 @@ public enum Model
 
 public class PlayerModelHandler : MonoBehaviour
 {
+    public static PlayerModelHandler Instance { get; private set; }
+
     [Header("Materials")]
     [SerializeField]
     private Shader skinShader;
@@ -52,6 +54,15 @@ public class PlayerModelHandler : MonoBehaviour
         playerModelAnimator = GetComponent<Animator>();
 
         currentRotationSpeed = defaultRotationSpeed;
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     private void Start()

@@ -35,6 +35,7 @@ public struct MinecraftProfile
 [RequireComponent(typeof(WebRequestHandler))]
 public class MojangAPIHandler : MonoBehaviour
 {
+    public static MojangAPIHandler Instance { get; private set; }
 
     [Header("Minecraft Profile")]
     [SerializeField]
@@ -70,6 +71,15 @@ public class MojangAPIHandler : MonoBehaviour
 
         if (WebRequestHandler)
             Debug.Log("WebRequestHandler is valid!");
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
 
 
         DontDestroyOnLoad(this);
