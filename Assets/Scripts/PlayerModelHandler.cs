@@ -118,12 +118,12 @@ public class PlayerModelHandler : MonoBehaviour
         // Toggle the arms
         foreach (GameObject arm in steveArms)
         {
-            arm.SetActive(currentModel == Model.Alex);
+            arm.SetActive(currentModel == Model.Steve);
         }
 
         foreach (GameObject arm in alexArms)
         {
-            arm.SetActive(currentModel == Model.Steve);
+            arm.SetActive(currentModel == Model.Alex);
         }
     }
 

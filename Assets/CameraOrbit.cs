@@ -42,7 +42,7 @@ public class CameraOrbit : MonoBehaviour
             GetComponent<Rigidbody>().freezeRotation = true;
         }
 
-        PerformFocus();
+        StartFocus();
     }
 
     void LateUpdate()
