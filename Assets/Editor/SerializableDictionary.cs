@@ -52,6 +52,7 @@ public class SerializableDictionary<TKey, TValue>
     public Dictionary<TKey, TValue> ToDictionary() => dictionary;
 }
 
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(SerializableDictionary<,>))]
 public class SerializableDictionaryDrawer : PropertyDrawer
 {
@@ -127,3 +128,4 @@ public class SerializableDictionaryDrawer : PropertyDrawer
         return height;
     }
 }
+#endif

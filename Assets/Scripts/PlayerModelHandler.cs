@@ -19,13 +19,12 @@ public class PlayerModelHandler : MonoBehaviour
     [SerializeField]
     private Texture2D currentSkin;
 
-    [SerializeField]
     private List<Material> allMaterialsInModel = new List<Material>();
 
     [Header("Model Controller")]
     private float defaultRotationSpeed = 100.0f;
 
-    [SerializeField]
+    //[SerializeField]
     private float currentRotationSpeed;
 
     [SerializeField]
@@ -37,16 +36,14 @@ public class PlayerModelHandler : MonoBehaviour
         Left
     }
 
-    [SerializeField]
+    //[SerializeField]
     private RotationDirection rotationDirection = RotationDirection.Right;
 
     [SerializeField]
     private Model currentModel = Model.Steve;
-
-    [SerializeField]
+ 
     private GameObject[] steveArms;
 
-    [SerializeField]
     private GameObject[] alexArms;
 
     private void Awake()
@@ -76,7 +73,7 @@ public class PlayerModelHandler : MonoBehaviour
 
     private void Update()
     {
-        RotateModel(rotationDirection);
+        
     }
 
 
@@ -118,9 +115,6 @@ public class PlayerModelHandler : MonoBehaviour
 
     public void ToggleModel()
     {
-        // Set the current model to the opposite of the current model
-        currentModel = currentModel == Model.Steve ? Model.Alex : Model.Steve;
-
         // Toggle the arms
         foreach (GameObject arm in steveArms)
         {
@@ -152,6 +146,7 @@ public class PlayerModelHandler : MonoBehaviour
 
     #endregion
 
+    // Currently unused but keeping in case it is needed in the future
     #region Model Control
 
     public void ToggleRotationSpeed()
@@ -187,6 +182,8 @@ public class PlayerModelHandler : MonoBehaviour
 
         // Set the animator bool to the new state
         playerModelAnimator.SetBool("isDetached", isDetached);
+
+        Debug.Log("Detached mode: " + isDetached);
     }
 
     public void SetRotationDirection(RotationDirection direction)

@@ -36,7 +36,7 @@ public class FileWatcher : MonoBehaviour
     {
         string path = "";
 
-        path = UnityEditor.EditorUtility.OpenFilePanel("Select Skin", "", "png");
+        //path = UnityEditor.EditorUtility.OpenFilePanel("Select Skin", "", "png");
 
         return path;
     }
