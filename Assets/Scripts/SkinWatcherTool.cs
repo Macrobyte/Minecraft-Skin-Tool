@@ -1,11 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class FileWatcher : MonoBehaviour
+public class SkinWatcherTool : MonoBehaviour
 {
+
+
+    [SerializeField] private Button watchSkinButton;
+
+
+
     FileSystemWatcher fileWatcher = new FileSystemWatcher();
+
+
+    private void Awake()
+    {
+        watchSkinButton.onClick.AddListener(BrowseFile);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +43,9 @@ public class FileWatcher : MonoBehaviour
     }
 
 
-    public string BrowseFile()
+    public void BrowseFile()
     {
-        string path = "";
-
-        //path = UnityEditor.EditorUtility.OpenFilePanel("Select Skin", "", "png");
-
-        return path;
+        
     }
 
     private void WatchFile(string path)
@@ -47,9 +54,4 @@ public class FileWatcher : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

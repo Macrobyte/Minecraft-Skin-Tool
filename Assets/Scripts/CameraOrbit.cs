@@ -5,25 +5,34 @@ using UnityEngine.UIElements;
 
 public class CameraOrbit : MonoBehaviour
 {
-    public Transform target;  // The object the camera orbits around
-    public float distance = 10.0f;  // Default distance from the target
-    public float xSpeed = 120.0f;  // Orbit speed around the X-axis
-    public float ySpeed = 120.0f;  // Orbit speed around the Y-axis
-    public float zoomSpeed = 10.0f;  // Speed of zooming in/out
-    public float panSpeed = 0.3f;  // Speed of panning
-    public float focusSpeed = 5.0f; // Speed of focusing on the target
+    [Header("Camera Target")]
+    [SerializeField] private Transform orbitTarget;
 
-    public float yMinLimit = -20f;  // Minimum Y rotation
-    public float yMaxLimit = 80f;  // Maximum Y rotation
-    public float distanceMin = 2f;  // Minimum zoom distance
-    public float distanceMax = 20f;  // Maximum zoom distance
+    [Header("Zoom")]
+    private float distance = 10.0f;  // Distance from the target
+    [SerializeField] [Range(0.5f, 3)] private float minZoomDistance = 2f;  
+    [SerializeField] [Range(4, 20)] private float maxZoomDistance = 20f;
+    [SerializeField] [Range(1, 20)] private float zoomSpeed = 10.0f;
 
+    [Header("Orbit")]
+    [SerializeField] [Range(1, 200)] private float xOrbitSpeed = 120.0f;  
+    [SerializeField] [Range(1, 200)] private float yOrbitSpeed = 120.0f;  
+    [SerializeField] [Range(-360, 0)] private float yMinAngleLimit = -20f;  
+    [SerializeField] [Range(0, 360)] private float yMaxAngleLimit = 80f;
+
+    [Header("Pan")]
+    [SerializeField] [Range(0.1f, 5)] private float panSpeed = 0.3f;  
+
+    [Header("Focus")]
+    [SerializeField] [Range(1, 10)] private float focusSpeed = 5.0f;
+    
+    
     private float x = 0.0f;  // Current X rotation
     private float y = 0.0f;  // Current Y rotation
     private Vector3 panOffset;  // Offset for panning
 
-    private Vector3 lastMousePosition;  // Last recorded mouse position
-    private bool isFocusing = false;  // Whether the camera is currently focusing on the target
+    private Vector3 lastMousePosition;
+    private bool isFocusing = false; 
 
     private Vector3 focusTargetPosition;  // Target position during focus
     private Quaternion focusTargetRotation;  // Target rotation during focus
@@ -34,33 +43,27 @@ public class CameraOrbit : MonoBehaviour
         x = angles.y;
         y = angles.x;
 
-        distance = Vector3.Distance(transform.position, target.position);
+        distance = Vector3.Distance(transform.position, orbitTarget.position);
         panOffset = Vector3.zero;
-
-        if (GetComponent<Rigidbody>())
-        {
-            GetComponent<Rigidbody>().freezeRotation = true;
-        }
 
         StartFocus();
     }
 
     void LateUpdate()
     {
-        if (target)
+        if (orbitTarget)
         {
             if (isFocusing)
-            {
-                Debug.Log("Focusing...");
+            {  
                 PerformFocus();
             }
             else
             {
                 if (Input.GetMouseButton(1))
                 {
-                    x += Input.GetAxis("Mouse X") * xSpeed * Time.deltaTime;
-                    y -= Input.GetAxis("Mouse Y") * ySpeed * Time.deltaTime;
-                    y = ClampAngle(y, yMinLimit, yMaxLimit);
+                    x += Input.GetAxis("Mouse X") * xOrbitSpeed * Time.deltaTime;
+                    y -= Input.GetAxis("Mouse Y") * yOrbitSpeed * Time.deltaTime;
+                    y = ClampAngle(y, yMinAngleLimit, yMaxAngleLimit);
                     isFocusing = false;
                 }
 
@@ -73,18 +76,15 @@ public class CameraOrbit : MonoBehaviour
                 }
 
                 if (Input.GetKeyDown(KeyCode.F))
-                {
-                    Debug.Log("F key pressed, starting focus...");
+                {    
                     StartFocus();
                 }
 
-
-
-                distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, distanceMin, distanceMax);
+                distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, minZoomDistance, maxZoomDistance);
 
                 Quaternion rotation = Quaternion.Euler(y, x, 0);
                 Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
-                Vector3 position = rotation * negDistance + target.position + panOffset;
+                Vector3 position = rotation * negDistance + orbitTarget.position + panOffset;
 
                 transform.rotation = rotation;
                 transform.position = position;
@@ -98,13 +98,11 @@ public class CameraOrbit : MonoBehaviour
     void StartFocus()
     {
         // Calculate the direction and set target rotation and position for focus
-        Vector3 directionToTarget = (target.position - transform.position).normalized;
+        Vector3 directionToTarget = (orbitTarget.position - transform.position).normalized;
         focusTargetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-        focusTargetPosition = target.position - (focusTargetRotation * Vector3.forward * distance);
+        focusTargetPosition = orbitTarget.position - (focusTargetRotation * Vector3.forward * distance);
 
-        isFocusing = true;
-
-        Debug.Log("Focus initiated. Target position: " + focusTargetPosition + ", Target rotation: " + focusTargetRotation.eulerAngles);
+        isFocusing = true; 
     }
 
     void PerformFocus()
@@ -114,8 +112,7 @@ public class CameraOrbit : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, focusTargetRotation, focusSpeed * Time.deltaTime);
 
         // Check if the camera has reached the desired position and rotation
-        if (Vector3.Distance(transform.position, focusTargetPosition) < 0.1f &&
-            Quaternion.Angle(transform.rotation, focusTargetRotation) < 1.0f)
+        if (Vector3.Distance(transform.position, focusTargetPosition) < 0.1f && Quaternion.Angle(transform.rotation, focusTargetRotation) < 1.0f)
         {
             Debug.Log("Focus complete.");
             isFocusing = false;

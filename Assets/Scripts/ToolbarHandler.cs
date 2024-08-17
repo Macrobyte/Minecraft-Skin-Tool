@@ -24,7 +24,18 @@ public class ToolbarHandler : MonoBehaviour
         {
             tool.toolbarButton.onClick.AddListener(() => tool.toolWindow.ToggleWindow());
         }
-        
+
+        ToggleAllTools();
+
+
+    }
+
+    public void ToggleAllTools()
+    {
+        foreach (Tool tool in tools)
+        {
+            tool.toolWindow.ToggleWindow();
+        }
     }
 }
 

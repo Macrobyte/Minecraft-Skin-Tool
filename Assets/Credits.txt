@@ -1,0 +1,2 @@
+Unity Standalone File Browser: https://github.com/gkngkc/UnityStandaloneFileBrowser
+Authors: Gökhan Gökçe, Ricardo Rodrigues 

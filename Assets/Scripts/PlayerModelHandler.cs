@@ -71,12 +71,6 @@ public class PlayerModelHandler : MonoBehaviour
         ToggleModel();
     }
 
-    private void Update()
-    {
-        
-    }
-
-
     #region Model Material Handling
     public void ApplySkin(Texture2D skin, Model model)
     {
@@ -146,7 +140,7 @@ public class PlayerModelHandler : MonoBehaviour
 
     #endregion
 
-    // Currently unused but keeping in case it is needed in the future
+    // Currently unused but keeping in case it is needed in the future. ToggleDetachMode() is still used.
     #region Model Control
 
     public void ToggleRotationSpeed()
