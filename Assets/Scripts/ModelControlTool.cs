@@ -6,13 +6,17 @@ using UnityEngine.UI;
 public class ModelControlTool : MonoBehaviour
 {
     [Header("Model Control Panel")]
-    [SerializeField]
-    private Button toggleDetachButton;
+
+    [SerializeField] private Button toggleDetachButton;
+
+    [SerializeField] private Button toggleModel;
 
 
     private void Start()
     {
-        toggleDetachButton.onClick.AddListener(PlayerModelHandler.Instance.ToggleDetachMode);      
+        toggleDetachButton.onClick.AddListener(PlayerModelHandler.Instance.ToggleDetachMode);
+        
+        toggleModel.onClick.AddListener(PlayerModelHandler.Instance.ToggleModel);
     }
 
     //private void RotateModelLeft()

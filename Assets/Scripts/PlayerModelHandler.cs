@@ -67,24 +67,17 @@ public class PlayerModelHandler : MonoBehaviour
         FindAllMaterialsInModel();
 
         FindAllArms();
-
-        ToggleModel();
     }
 
     #region Model Material Handling
+    /// <summary>
+    /// This method is mostly used by the SkinSearchTool which gets Texture2D and Model information from the MojangAPIHandler.
+    /// </summary>
+    /// <param name="skin"></param>
+    /// <param name="model"></param>
     public void ApplySkin(Texture2D skin, Model model)
     {
-        switch (model)
-        {
-            case Model.Steve:
-                currentModel = Model.Steve;
-                ToggleModel();
-                break;
-            case Model.Alex:
-                currentModel = Model.Alex;
-                ToggleModel();
-                break;
-        }
+        ChangeModel(model);
 
         currentSkin = skin;
 
@@ -95,7 +88,26 @@ public class PlayerModelHandler : MonoBehaviour
         }
     }
 
-    public void ResetSkin(Texture2D defaultSkin)
+    /// <summary>
+    /// General ApplySkin method that requires only the Texture2D.
+    /// </summary>
+    /// <param name="skin"></param>
+    public void ApplySkin(Texture2D skin)
+    {
+        Debug.Log("Applying skin");
+
+        ChangeModel(Model.Steve);
+
+        currentSkin = skin;
+
+        
+        foreach (Material material in allMaterialsInModel)
+        {
+            material.mainTexture = currentSkin;
+        }
+    }
+
+    private void ResetSkin(Texture2D defaultSkin)
     {
         currentSkin = defaultSkin;
 
@@ -107,17 +119,31 @@ public class PlayerModelHandler : MonoBehaviour
         
     }
 
-    public void ToggleModel()
+    private void ChangeModel(Model newModel)
     {
-        // Toggle the arms
+
         foreach (GameObject arm in steveArms)
         {
-            arm.SetActive(currentModel == Model.Steve);
+            arm.SetActive(newModel == Model.Steve);
         }
 
         foreach (GameObject arm in alexArms)
         {
-            arm.SetActive(currentModel == Model.Alex);
+            arm.SetActive(newModel == Model.Alex);
+        }
+
+        currentModel = newModel;
+    }
+
+    public void ToggleModel()
+    {
+        if (currentModel == Model.Steve)
+        {
+            ChangeModel(Model.Alex);
+        }
+        else
+        {
+            ChangeModel(Model.Steve);
         }
     }
 
@@ -186,4 +212,11 @@ public class PlayerModelHandler : MonoBehaviour
     }
 
     #endregion
+
+
+
+    public void FARTING()
+    {
+        PlayerAudioManager.instance.PlayPlayerSound(PlayerSounds.Fart);
+    }
 }

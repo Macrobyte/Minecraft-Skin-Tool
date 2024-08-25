@@ -1,57 +1,80 @@
+using SFB;
+using System;
+using System.Collections.Concurrent;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkinWatcherTool : MonoBehaviour
 {
-
-
+    [Header("UI Elements")]
+    public Button testButton;
     [SerializeField] private Button watchSkinButton;
+    [SerializeField] private TMP_Text trackedFileInfoText;
 
+    private FileWatcher fileWatcher;
 
-
-    FileSystemWatcher fileWatcher = new FileSystemWatcher();
-
+    [SerializeField] private Texture2D currentSkinTexture;
 
     private void Awake()
     {
-        watchSkinButton.onClick.AddListener(BrowseFile);
+        fileWatcher = new FileWatcher();
+
+        fileWatcher.Init();
+
+        watchSkinButton.onClick.AddListener(fileWatcher.SetWatchedFile);
+
+        fileWatcher.onFileChanged += OnSkinFileUpdated;
+
+        fileWatcher.onFileAdded += OnSkinFileAdded;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnSkinFileAdded()
     {
-        InitializeWatcher();
+        currentSkinTexture = LoadTextureFromPath(fileWatcher.GetWatchedPath());
+
+        PlayerModelHandler.Instance.ApplySkin(currentSkinTexture);
+
+        Debug.Log("Skin file added");
     }
 
-
-    private void InitializeWatcher()
+    private void OnSkinFileUpdated()
     {
+        currentSkinTexture = LoadTextureFromPath(fileWatcher.GetWatchedPath());
 
-        fileWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.Size | NotifyFilters.Attributes;
+        PlayerModelHandler.Instance.ApplySkin(currentSkinTexture);
 
-        fileWatcher.Filter = "*.png";
-
-        fileWatcher.Changed += OnChanged;
-
-        fileWatcher.EnableRaisingEvents = true;
+        Debug.Log("Skin file updated");
     }
 
-    private void OnChanged(object source, FileSystemEventArgs e)
+
+    private Texture2D LoadTextureFromPath(string path)
     {
-        Debug.Log("File: " + e.FullPath + " " + e.ChangeType);
+        if(File.Exists(path))
+        {
+            byte[] fileData = File.ReadAllBytes(path);
+
+            Texture2D skinTexture = new Texture2D(2, 2);
+
+            if (skinTexture.LoadImage(fileData))
+            {
+                skinTexture.filterMode = FilterMode.Point;
+                Debug.Log("Texture loaded successfully");
+                return skinTexture;
+
+            }
+            else
+            {
+                Debug.LogError("Failed to load texture");
+                return null;
+
+            }
+        }
+        else
+        {
+            Debug.LogError("Texture file does not exist");
+            return null;
+        }   
     }
-
-
-    public void BrowseFile()
-    {
-        
-    }
-
-    private void WatchFile(string path)
-    {
-        fileWatcher.Path = path;
-    }
-
-
 }
