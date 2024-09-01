@@ -43,6 +43,7 @@ public class FileWatcher
     {
         watchedPath = BrowseFile();
 
+
         if (watchedPath != null)
         {
             fileSystemWatcher.Path = Path.GetDirectoryName(watchedPath);

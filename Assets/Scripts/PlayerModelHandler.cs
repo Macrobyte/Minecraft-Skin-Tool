@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityReadOnly = Unity.Collections.ReadOnlyAttribute;
+using CustomAttributes;
+
 public enum Model
 {
     Steve,
@@ -11,36 +14,32 @@ public class PlayerModelHandler : MonoBehaviour
     public static PlayerModelHandler Instance { get; private set; }
 
     [Header("Materials")]
-    [SerializeField]
-    private Shader skinShader;
-    
-    public Texture2D defaultSkin;
+    [SerializeField] private Shader skinShader;
 
-    [SerializeField]
-    private Texture2D currentSkin;
+    [SerializeField] public Texture2D defaultSkin;
+
+    [SerializeField] private Texture2D currentSkin;
 
     private List<Material> allMaterialsInModel = new List<Material>();
 
     [Header("Model Controller")]
-    private float defaultRotationSpeed = 100.0f;
+    [SerializeField, ReadOnly] private float defaultRotationSpeed = 100.0f;
 
-    //[SerializeField]
-    private float currentRotationSpeed;
+    [SerializeField, ReadOnly] private float currentRotationSpeed;
 
-    [SerializeField]
-    private Animator playerModelAnimator;
+    [SerializeField] private Model currentModel = Model.Steve;
 
-    public enum RotationDirection
+    [Header("Model Animator")]
+    [SerializeField, ReadOnly] private Animator playerModelAnimator;
+
+    public enum AnimationState
     {
-        Right,
-        Left
+        Idle,
+        Walking,
+        Detached
     }
 
-    //[SerializeField]
-    private RotationDirection rotationDirection = RotationDirection.Right;
-
-    [SerializeField]
-    private Model currentModel = Model.Steve;
+    [SerializeField] private AnimationState currentAnimationState = AnimationState.Idle; 
  
     private GameObject[] steveArms;
 
@@ -67,6 +66,10 @@ public class PlayerModelHandler : MonoBehaviour
         FindAllMaterialsInModel();
 
         FindAllArms();
+
+        ApplySkin(defaultSkin);
+
+        PlayAnimation(currentAnimationState);
     }
 
     #region Model Material Handling
@@ -166,57 +169,30 @@ public class PlayerModelHandler : MonoBehaviour
 
     #endregion
 
-    // Currently unused but keeping in case it is needed in the future. ToggleDetachMode() is still used.
     #region Model Control
 
-    public void ToggleRotationSpeed()
+    public void PlayAnimation(AnimationState state)
     {
-        // If the current rotation speed is the default speed, set it to 0
-        if (currentRotationSpeed == defaultRotationSpeed)
+        // switch statement the state of the animation
+        switch (state)
         {
-            currentRotationSpeed = 0;
-        }
-        else
-        {
-            currentRotationSpeed = defaultRotationSpeed;
-        }
-    }
-    
-    private void RotateModel(RotationDirection direction)
-    {
-        switch(direction)
-        {
-            case RotationDirection.Right:
-                gameObject.transform.Rotate(Vector3.forward, -currentRotationSpeed * Time.deltaTime);
+            case AnimationState.Idle:
+                playerModelAnimator.SetBool("isIdle", true);
+                playerModelAnimator.SetBool("isWalking", false);
+                playerModelAnimator.SetBool("isDetached", false);
                 break;
-            case RotationDirection.Left:
-                gameObject.transform.Rotate(Vector3.forward, currentRotationSpeed * Time.deltaTime);
+            case AnimationState.Walking:
+                playerModelAnimator.SetBool("isIdle", false);
+                playerModelAnimator.SetBool("isWalking", true);
+                playerModelAnimator.SetBool("isDetached", false);
+                break;
+            case AnimationState.Detached:
+                playerModelAnimator.SetBool("isIdle", false);
+                playerModelAnimator.SetBool("isWalking", false);
+                playerModelAnimator.SetBool("isDetached", true);
                 break;
         }
     }
-
-    public void ToggleDetachMode()
-    {
-        // Set a temporary variable to the opposite of the current state
-        bool isDetached = !playerModelAnimator.GetBool("isDetached");
-
-        // Set the animator bool to the new state
-        playerModelAnimator.SetBool("isDetached", isDetached);
-
-        Debug.Log("Detached mode: " + isDetached);
-    }
-
-    public void SetRotationDirection(RotationDirection direction)
-    {
-        rotationDirection = direction;
-    }
-
     #endregion
 
-
-
-    public void FARTING()
-    {
-        PlayerAudioManager.instance.PlayPlayerSound(PlayerSounds.Fart);
-    }
 }

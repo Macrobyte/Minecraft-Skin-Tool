@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [Serializable]
 public class SerializableDictionary<TKey, TValue>
 {
@@ -52,7 +53,7 @@ public class SerializableDictionary<TKey, TValue>
     public Dictionary<TKey, TValue> ToDictionary() => dictionary;
 }
 
-#if UNITY_EDITOR
+
 [CustomPropertyDrawer(typeof(SerializableDictionary<,>))]
 public class SerializableDictionaryDrawer : PropertyDrawer
 {

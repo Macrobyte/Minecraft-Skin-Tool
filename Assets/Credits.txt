@@ -1,2 +1,8 @@
 Unity Standalone File Browser: https://github.com/gkngkc/UnityStandaloneFileBrowser
 Authors: Gökhan Gökçe, Ricardo Rodrigues 
+
+Lucid icons: https://leo-red.itch.io/lucid-icon-pack
+Author: Midhil [Leo Red]
+
+Basic Pixel GUI and Buttons pack 1: https://bdragon1727.itch.io/basic-pixel-gui-and-buttons-pack-1
+Author: BDragon1727
