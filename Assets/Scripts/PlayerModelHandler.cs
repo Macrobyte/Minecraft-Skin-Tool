@@ -10,24 +10,24 @@ public enum Model
     Alex
 }
 
-[Serializable]
-enum ArmorMaterial
-{
-    None,
-    Chainmail,
-    Iron,
-    Gold,
-    Diamond,
-    Netherite,
-    Turtle
-}
+//[Serializable]
+//enum ArmorMaterial
+//{
+//    None,
+//    Chainmail,
+//    Iron,
+//    Gold,
+//    Diamond,
+//    Netherite,
+//    Turtle
+//}
 
-[Serializable]
-struct Armor
-{
-    public Texture2D armorTexture;
-    public ArmorMaterial armorMaterial;
-}
+//[Serializable]
+//struct Armor
+//{
+//    public Texture2D armorTexture;
+//    public ArmorMaterial armorMaterial;
+//}
 
 
 public class PlayerModelHandler : MonoBehaviour
@@ -46,11 +46,11 @@ public class PlayerModelHandler : MonoBehaviour
 
     [SerializeField, ReadOnly] private List<Material> allSkinMaterials = new List<Material>();
 
-    [Header("Armor")]
-    [SerializeField] private Armor Helmet;
-    [SerializeField] private Armor Chestplate;
-    [SerializeField] private Armor Leggings;
-    [SerializeField] private Armor Boots;
+    //[Header("Armor")]
+    //[SerializeField] private Armor Helmet;
+    //[SerializeField] private Armor Chestplate;
+    //[SerializeField] private Armor Leggings;
+    //[SerializeField] private Armor Boots;
 
     
     [Header("Model Controller")]
