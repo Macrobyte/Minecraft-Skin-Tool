@@ -20,7 +20,7 @@ public class ToolbarHandler : MonoBehaviour
 
     [Header("Menu")]
     [SerializeField] private Button menuButton;
-    [SerializeField] private MainMenu menuWindow;
+    [SerializeField] private MainMenuWindow menuWindow;
 
     private void Awake()
     {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityReadOnly = Unity.Collections.ReadOnlyAttribute;
 using CustomAttributes;
+using System;
 
 public enum Model
 {
@@ -9,19 +10,49 @@ public enum Model
     Alex
 }
 
+[Serializable]
+enum ArmorMaterial
+{
+    None,
+    Chainmail,
+    Iron,
+    Gold,
+    Diamond,
+    Netherite,
+    Turtle
+}
+
+[Serializable]
+struct Armor
+{
+    public Texture2D armorTexture;
+    public ArmorMaterial armorMaterial;
+}
+
+
 public class PlayerModelHandler : MonoBehaviour
 {
     public static PlayerModelHandler Instance { get; private set; }
 
-    [Header("Materials")]
-    [SerializeField] private Shader skinShader;
+    [Header("Shader and Materials")]
+    [SerializeField] private Shader texturesShader;
+    
+    
 
-    [SerializeField] public Texture2D defaultSkin;
+    [Header("Skin")]
+    [SerializeField] private Texture2D defaultSkin;
 
     [SerializeField] private Texture2D currentSkin;
 
-    private List<Material> allMaterialsInModel = new List<Material>();
+    [SerializeField, ReadOnly] private List<Material> allSkinMaterials = new List<Material>();
 
+    [Header("Armor")]
+    [SerializeField] private Armor Helmet;
+    [SerializeField] private Armor Chestplate;
+    [SerializeField] private Armor Leggings;
+    [SerializeField] private Armor Boots;
+
+    
     [Header("Model Controller")]
     [SerializeField, ReadOnly] private float defaultRotationSpeed = 100.0f;
 
@@ -72,7 +103,7 @@ public class PlayerModelHandler : MonoBehaviour
         PlayAnimation(currentAnimationState);
     }
 
-    #region Model Material Handling
+#region Model Material Handling
     /// <summary>
     /// This method is mostly used by the SkinSearchTool which gets Texture2D and Model information from the MojangAPIHandler.
     /// </summary>
@@ -85,7 +116,7 @@ public class PlayerModelHandler : MonoBehaviour
         currentSkin = skin;
 
         // Apply the skin to the materials of the model
-        foreach (Material material in allMaterialsInModel)
+        foreach (Material material in allSkinMaterials)
         {
             material.mainTexture = currentSkin;
         }
@@ -104,7 +135,7 @@ public class PlayerModelHandler : MonoBehaviour
         currentSkin = skin;
 
         
-        foreach (Material material in allMaterialsInModel)
+        foreach (Material material in allSkinMaterials)
         {
             material.mainTexture = currentSkin;
         }
@@ -115,7 +146,7 @@ public class PlayerModelHandler : MonoBehaviour
         currentSkin = defaultSkin;
 
         // Apply the default skin to the materials of the model
-        foreach (Material material in allMaterialsInModel)
+        foreach (Material material in allSkinMaterials)
         {
             material.mainTexture = currentSkin;
         }
@@ -156,7 +187,14 @@ public class PlayerModelHandler : MonoBehaviour
 
         foreach (MeshRenderer mesh in meshes)
         {
-            allMaterialsInModel.Add(mesh.material);
+            if(mesh.material.name.Contains("Inner") || mesh.material.name.Contains("Outer"))
+            {
+                Debug.Log("Found: " + mesh.material.name);
+                // TODO: Add armor to alex model in blender so that the materials are present in slim arm models
+            }
+
+
+            allSkinMaterials.Add(mesh.material);
         }
     }
 
@@ -167,9 +205,9 @@ public class PlayerModelHandler : MonoBehaviour
         alexArms = GameObject.FindGameObjectsWithTag("Alex Arm");
     }
 
-    #endregion
+#endregion
 
-    #region Model Control
+#region Model Control
 
     public void PlayAnimation(AnimationState state)
     {
@@ -193,6 +231,14 @@ public class PlayerModelHandler : MonoBehaviour
                 break;
         }
     }
-    #endregion
+#endregion
 
+#region Getters
+
+    public Texture2D GetCurrentSkin()
+    {
+        return currentSkin;
+    }
+
+#endregion
 }
