@@ -26,12 +26,9 @@ public class Armor : ScriptableObject
     }
 #endregion
 
-    [SerializeField] private Material material;
+    public Material material;
 
-    [SerializeField] private Type type;
+    public Texture2D texture;
 
-    [SerializeField] private Texture2D texture;
-
-
-  
+    public Texture2D icon;
 }
