@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +19,8 @@ public class ModelControlTool : MonoBehaviour
         public string name;
         public Button LeftButton;
         public Button RightButton;
-        public Image Icon;
+        public RawImage Icon;
+
     }
 
     [SerializeField] private List<ArmorSlot> armorSlots;
@@ -33,11 +33,28 @@ public class ModelControlTool : MonoBehaviour
 
         animationSlider.onValueChanged.AddListener(ChangeAnimation);
 
-        armorSlots.ForEach(slot =>
+        foreach(ArmorSlot slot in armorSlots)
         {
             slot.LeftButton.onClick.AddListener(() => PlayerModelHandler.Instance.ChangeArmor(slot.name, -1));
+
             slot.RightButton.onClick.AddListener(() => PlayerModelHandler.Instance.ChangeArmor(slot.name, 1));
-        });
+        }
+
+        PlayerModelHandler.Instance.onArmorEquipped += UpdateArmorIcon;
+    }
+
+    private void UpdateArmorIcon(Armor armorEquipped)
+    {
+        //Debug.Log("Updating armor icon");   
+
+        foreach(ArmorSlot slot in armorSlots)
+        {
+            if (armorEquipped.name.Contains(slot.name))
+            {
+                slot.Icon.texture = armorEquipped.icon;
+            }
+            
+        }
     }
 
     private void ChangeAnimation(float sliderValue)

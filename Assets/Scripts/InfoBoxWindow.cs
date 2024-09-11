@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InfoBoxWindow : MonoBehaviour
 {
     [SerializeField] private TMP_Text infoText;
 
-    public void SetInfoText(string text)
-    {
-        infoText.text = text;
-    }
+    [SerializeField] private Button closeButton;
 
     private void OnEnable()
     {
@@ -19,5 +15,18 @@ public class InfoBoxWindow : MonoBehaviour
 
         // Set the position to the center of the screen
         transform.position = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+
+        // Set the close button to close the window
+        closeButton.onClick.AddListener(CloseWindow);
+    }
+
+    public void CloseWindow()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetInfoText(string text)
+    {
+        infoText.text = text;
     }
 }

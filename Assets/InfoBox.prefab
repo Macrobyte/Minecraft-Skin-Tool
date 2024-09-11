@@ -515,6 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoText: {fileID: 316599591746800411}
+  closeButton: {fileID: 1620639298878969547}
 --- !u!1 &5109480121054527453
 GameObject:
   m_ObjectHideFlags: 0

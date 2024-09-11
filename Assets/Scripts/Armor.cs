@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,9 @@ public class Armor : ScriptableObject
         Leggings,
         Boots
     }
-#endregion
+    #endregion
+
+    public Slot slot;
 
     public Material material;
 

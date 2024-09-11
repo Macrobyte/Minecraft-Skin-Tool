@@ -3,12 +3,19 @@ using UnityEngine;
 using UnityReadOnly = Unity.Collections.ReadOnlyAttribute;
 using CustomAttributes;
 using System;
-using System.Drawing;
 
 public enum Model
 {
     Steve,
     Alex
+}
+
+public enum Slot
+{
+    Head,
+    Chest,
+    Legs,
+    Feet
 }
 
 public class PlayerModelHandler : MonoBehaviour
@@ -68,13 +75,9 @@ public class PlayerModelHandler : MonoBehaviour
     [SerializeField, ReadOnly] private Armor equippedLeggings;
     [SerializeField, ReadOnly] private Armor equippedBoots;
 
-    enum Slot
-    {
-        Head,
-        Chest,
-        Legs,
-        Feet
-    }
+    
+
+    public Action<Armor> onArmorEquipped;
 
     [Space(10)]
     [Divider(4, 88, 88, 88, 0.5f)]
@@ -123,7 +126,6 @@ public class PlayerModelHandler : MonoBehaviour
 
         //DisableArmor();
 
-        //Equip(Helmets[0], Slot.Head);
     }
 
 #region Skin Handling
@@ -320,7 +322,6 @@ public class PlayerModelHandler : MonoBehaviour
         }
     }
 
-
     private void DisableArmor()
     {
         foreach (GameObject armor in allArmor)
@@ -349,10 +350,70 @@ public class PlayerModelHandler : MonoBehaviour
         }
     }
 
+    public void ChangeArmor(string name, int v)
+    {
+        switch (name)
+        {
+            case "Helmet":
+                int currentHelmetIndex = Helmets.IndexOf(equippedHelmet);
+                int newHelmetIndex = (currentHelmetIndex + v) % Helmets.Count;
 
-#endregion
+                // Handle wrapping around the list when going below 0
+                if (newHelmetIndex < 0)
+                {
+                    newHelmetIndex += Helmets.Count;
+                }
 
-#region Model Control
+                // Equip the new helmet and update the equippedHelmet variable
+                equippedHelmet = Helmets[newHelmetIndex];
+                Equip(equippedHelmet, Slot.Head);
+                onArmorEquipped?.Invoke(equippedHelmet);
+                break;
+            case "Chestplate":
+                int currentChestplateIndex = Chestplates.IndexOf(equippedChestplate);
+                int newChestplateIndex = (currentChestplateIndex + v) % Chestplates.Count;
+
+                if (newChestplateIndex < 0)
+                {
+                    newChestplateIndex += Chestplates.Count;
+                }
+
+                equippedChestplate = Chestplates[newChestplateIndex];
+                Equip(equippedChestplate, Slot.Chest);
+                onArmorEquipped?.Invoke(equippedChestplate);
+                break;
+            case "Leggings":
+                int currentLeggingsIndex = Leggings.IndexOf(equippedLeggings);
+                int newLeggingsIndex = (currentLeggingsIndex + v) % Leggings.Count;
+
+                if (newLeggingsIndex < 0)
+                {
+                    newLeggingsIndex += Leggings.Count;
+                }
+
+                equippedLeggings = Leggings[newLeggingsIndex];
+                Equip(equippedLeggings, Slot.Legs);
+                onArmorEquipped?.Invoke(equippedLeggings);
+                break;
+            case "Boots":
+                int currentBootsIndex = Boots.IndexOf(equippedBoots);
+                int newBootsIndex = (currentBootsIndex + v) % Boots.Count;
+
+                if (newBootsIndex < 0)
+                {
+                    newBootsIndex += Boots.Count;
+                }
+
+                equippedBoots = Boots[newBootsIndex];
+                Equip(equippedBoots, Slot.Feet);
+                onArmorEquipped?.Invoke(equippedBoots);
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Model Control
     public void PlayAnimation(AnimationState state)
     {
         Debug.Log("Playing animation");
@@ -386,62 +447,7 @@ public class PlayerModelHandler : MonoBehaviour
         return currentSkin;
     }
 
-    public void ChangeArmor(string name, int v)
-    { 
-        switch (name)
-        {
-            case "Helmet":
-                int currentHelmetIndex = Helmets.IndexOf(equippedHelmet);
-                int newHelmetIndex = (currentHelmetIndex + v) % Helmets.Count;
-
-                // Handle wrapping around the list when going below 0
-                if (newHelmetIndex < 0)
-                {
-                    newHelmetIndex += Helmets.Count;
-                }
-
-                // Equip the new helmet and update the equippedHelmet variable
-                equippedHelmet = Helmets[newHelmetIndex];
-                Equip(equippedHelmet, Slot.Head);
-                break;
-            case "Chestplate":
-                int currentChestplateIndex = Chestplates.IndexOf(equippedChestplate);
-                int newChestplateIndex = (currentChestplateIndex + v) % Chestplates.Count;
-
-                if (newChestplateIndex < 0)
-                {
-                    newChestplateIndex += Chestplates.Count;
-                }
-
-                equippedChestplate = Chestplates[newChestplateIndex];
-                Equip(equippedChestplate, Slot.Chest);
-                break;
-            case "Leggings":
-                int currentLeggingsIndex = Leggings.IndexOf(equippedLeggings);
-                int newLeggingsIndex = (currentLeggingsIndex + v) % Leggings.Count;
-
-                if (newLeggingsIndex < 0)
-                {
-                    newLeggingsIndex += Leggings.Count;
-                }
-
-                equippedLeggings = Leggings[newLeggingsIndex];
-                Equip(equippedLeggings, Slot.Legs);
-                break;
-            case "Boots":
-                int currentBootsIndex = Boots.IndexOf(equippedBoots);
-                int newBootsIndex = (currentBootsIndex + v) % Boots.Count;
-
-                if (newBootsIndex < 0)
-                {
-                    newBootsIndex += Boots.Count;
-                }
-
-                equippedBoots = Boots[newBootsIndex];
-                Equip(equippedBoots, Slot.Feet);
-                break;
-        }
-    }
+    
 
     #endregion
 }
