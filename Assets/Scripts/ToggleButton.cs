@@ -23,6 +23,7 @@ public class ToggleButton : MonoBehaviour
         startPos = button.transform.localPosition.x;
 
         endPos = startPos * -1;
+
     }
 
     private void ButtonToggle()

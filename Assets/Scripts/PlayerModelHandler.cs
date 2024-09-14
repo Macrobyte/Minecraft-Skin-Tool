@@ -4,19 +4,9 @@ using UnityReadOnly = Unity.Collections.ReadOnlyAttribute;
 using CustomAttributes;
 using System;
 
-public enum Model
-{
-    Steve,
-    Alex
-}
 
-public enum Slot
-{
-    Head,
-    Chest,
-    Legs,
-    Feet
-}
+
+
 
 public class PlayerModelHandler : MonoBehaviour
 {
@@ -75,9 +65,21 @@ public class PlayerModelHandler : MonoBehaviour
     [SerializeField, ReadOnly] private Armor equippedLeggings;
     [SerializeField, ReadOnly] private Armor equippedBoots;
 
-    
-
     public Action<Armor> onArmorEquipped;
+
+    public enum Slot
+    {
+        Head,
+        Chest,
+        Legs,
+        Feet
+    }
+
+    public enum Model
+    {
+        Steve,
+        Alex
+    }
 
     [Space(10)]
     [Divider(4, 88, 88, 88, 0.5f)]
@@ -124,8 +126,12 @@ public class PlayerModelHandler : MonoBehaviour
 
         PlayAnimation(currentAnimationState);
 
-        //DisableArmor();
+        Equip(Helmets[0], Slot.Head);
+        Equip(Chestplates[0], Slot.Chest);
+        Equip(Leggings[0], Slot.Legs);
+        Equip(Boots[0], Slot.Feet);
 
+        DisableArmor();
     }
 
 #region Skin Handling
@@ -158,7 +164,7 @@ public class PlayerModelHandler : MonoBehaviour
         }
     }
 
-    private void ChangeModel(Model newModel)
+    public void ChangeModel(Model newModel)
     {
 
         foreach (GameObject arm in steveArms)
@@ -285,7 +291,7 @@ public class PlayerModelHandler : MonoBehaviour
                     {
                         material.mainTexture = armor.texture;
                         equippedHelmet = armor;
-
+                        onArmorEquipped?.Invoke(armor);
                     }
                 }
                 break;
@@ -296,6 +302,7 @@ public class PlayerModelHandler : MonoBehaviour
                     {
                         material.mainTexture = armor.texture;
                         equippedChestplate = armor;
+                        onArmorEquipped?.Invoke(armor);
                     }
                 }             
                 break;
@@ -306,6 +313,7 @@ public class PlayerModelHandler : MonoBehaviour
                     {
                         material.mainTexture = armor.texture;
                         equippedLeggings = armor;
+                        onArmorEquipped?.Invoke(armor);
                     }
                 }   
                 break;
@@ -316,6 +324,7 @@ public class PlayerModelHandler : MonoBehaviour
                     {
                         material.mainTexture = armor.texture;
                         equippedBoots = armor;
+                        onArmorEquipped?.Invoke(armor);
                     }
                 }   
                 break;
@@ -366,8 +375,8 @@ public class PlayerModelHandler : MonoBehaviour
 
                 // Equip the new helmet and update the equippedHelmet variable
                 equippedHelmet = Helmets[newHelmetIndex];
+
                 Equip(equippedHelmet, Slot.Head);
-                onArmorEquipped?.Invoke(equippedHelmet);
                 break;
             case "Chestplate":
                 int currentChestplateIndex = Chestplates.IndexOf(equippedChestplate);
@@ -379,8 +388,8 @@ public class PlayerModelHandler : MonoBehaviour
                 }
 
                 equippedChestplate = Chestplates[newChestplateIndex];
+
                 Equip(equippedChestplate, Slot.Chest);
-                onArmorEquipped?.Invoke(equippedChestplate);
                 break;
             case "Leggings":
                 int currentLeggingsIndex = Leggings.IndexOf(equippedLeggings);
@@ -392,8 +401,8 @@ public class PlayerModelHandler : MonoBehaviour
                 }
 
                 equippedLeggings = Leggings[newLeggingsIndex];
+
                 Equip(equippedLeggings, Slot.Legs);
-                onArmorEquipped?.Invoke(equippedLeggings);
                 break;
             case "Boots":
                 int currentBootsIndex = Boots.IndexOf(equippedBoots);
@@ -405,15 +414,15 @@ public class PlayerModelHandler : MonoBehaviour
                 }
 
                 equippedBoots = Boots[newBootsIndex];
+
                 Equip(equippedBoots, Slot.Feet);
-                onArmorEquipped?.Invoke(equippedBoots);
                 break;
         }
     }
 
     #endregion
 
-    #region Model Control
+#region Model Control
     public void PlayAnimation(AnimationState state)
     {
         Debug.Log("Playing animation");

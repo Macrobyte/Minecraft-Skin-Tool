@@ -15,19 +15,14 @@ public class Armor : ScriptableObject
         Diamond,
         Gold,
         Netherite,
-        Turtle
-    }
-
-    public enum Type
-    {
-        Helmet,
-        Chestplate,
-        Leggings,
-        Boots
+        Turtle,
+        Leather,
+        None
     }
     #endregion
 
-    public Slot slot;
+    // TODO: Slot probably shooldn't be a part of the PlayerModelHandler class
+    public PlayerModelHandler.Slot slot;
 
     public Material material;
 

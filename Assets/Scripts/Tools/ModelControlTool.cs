@@ -7,7 +7,7 @@ public class ModelControlTool : MonoBehaviour
 {
     [Header("Model Control Panel")]
 
-    [SerializeField] private Button toggleModel;
+    [SerializeField] private Slider modelSlider;
 
     [SerializeField] private Slider animationSlider;
 
@@ -27,11 +27,12 @@ public class ModelControlTool : MonoBehaviour
 
     private void Start()
     {            
-        toggleModel.onClick.AddListener(PlayerModelHandler.Instance.ToggleModel);
-
-        toggleArmor.onToggle += PlayerModelHandler.Instance.ToggleArmor;
 
         animationSlider.onValueChanged.AddListener(ChangeAnimation);
+
+        modelSlider.onValueChanged.AddListener(ChangeModel);
+
+        toggleArmor.onToggle += PlayerModelHandler.Instance.ToggleArmor;
 
         foreach(ArmorSlot slot in armorSlots)
         {
@@ -45,8 +46,6 @@ public class ModelControlTool : MonoBehaviour
 
     private void UpdateArmorIcon(Armor armorEquipped)
     {
-        //Debug.Log("Updating armor icon");   
-
         foreach(ArmorSlot slot in armorSlots)
         {
             if (armorEquipped.name.Contains(slot.name))
@@ -62,8 +61,8 @@ public class ModelControlTool : MonoBehaviour
         PlayerModelHandler.Instance.PlayAnimation((PlayerModelHandler.AnimationState)sliderValue);
     }
 
-
-
-
-
+    private void ChangeModel(float sliderValue)
+    {
+       PlayerModelHandler.Instance.ChangeModel((PlayerModelHandler.Model)sliderValue);
+    }
 }
