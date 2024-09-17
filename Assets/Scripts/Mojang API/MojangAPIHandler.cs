@@ -4,6 +4,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
+using SkinToolEnums;
+
 #region Profile Struct
 [System.Serializable]
 public struct MinecraftProfile

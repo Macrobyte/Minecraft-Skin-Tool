@@ -3,10 +3,7 @@ using UnityEngine;
 using UnityReadOnly = Unity.Collections.ReadOnlyAttribute;
 using CustomAttributes;
 using System;
-
-
-
-
+using SkinToolEnums;
 
 public class PlayerModelHandler : MonoBehaviour
 {
@@ -66,20 +63,6 @@ public class PlayerModelHandler : MonoBehaviour
     [SerializeField, ReadOnly] private Armor equippedBoots;
 
     public Action<Armor> onArmorEquipped;
-
-    public enum Slot
-    {
-        Head,
-        Chest,
-        Legs,
-        Feet
-    }
-
-    public enum Model
-    {
-        Steve,
-        Alex
-    }
 
     [Space(10)]
     [Divider(4, 88, 88, 88, 0.5f)]

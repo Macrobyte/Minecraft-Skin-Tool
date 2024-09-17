@@ -8,17 +8,27 @@ public class MainMenuWindow : MonoBehaviour
 {
     [Header("Buttons")]
     [SerializeField] private Button saveCurrentButton;
+    [SerializeField] private Button creditsButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Button backButton;
 
     [Header("Info Window")]
     [SerializeField] private GameObject infoWindowPrefab;
 
+    [Header("Credits Window")]
+    [SerializeField] private GameObject creditsWindowPrefab;
+
     private void Awake()
     {
         saveCurrentButton.onClick.AddListener(SaveCurrent);
+        creditsButton.onClick.AddListener(OpenCreditsWindow);
         quitButton.onClick.AddListener(Quit);
         backButton.onClick.AddListener(Back);
+    }
+
+    private void OpenCreditsWindow()
+    {
+        GameObject creditsWindow = GameObject.Instantiate(creditsWindowPrefab);
     }
 
     private void Back()

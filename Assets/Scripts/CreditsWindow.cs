@@ -1,11 +1,10 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InfoBoxWindow : MonoBehaviour
+public class CreditsWindow : MonoBehaviour
 {
-    [SerializeField] private TMP_Text infoText;
-
     [SerializeField] private Button closeButton;
 
     public void OnEnable()
@@ -23,10 +22,5 @@ public class InfoBoxWindow : MonoBehaviour
     public void CloseWindow()
     {
         gameObject.SetActive(false);
-    }
-
-    public void SetInfoText(string text)
-    {
-        infoText.text = text;
     }
 }

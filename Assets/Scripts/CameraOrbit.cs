@@ -15,8 +15,8 @@ public class CameraOrbit : MonoBehaviour
     [SerializeField] [Range(1, 20)] private float zoomSpeed = 10.0f;
 
     [Header("Orbit")]
-    [SerializeField] [Range(1, 200)] private float xOrbitSpeed = 120.0f;  
-    [SerializeField] [Range(1, 200)] private float yOrbitSpeed = 120.0f;  
+    [SerializeField] [Range(1, 1000)] private float xOrbitSpeed = 120.0f;  
+    [SerializeField] [Range(1, 1000)] private float yOrbitSpeed = 120.0f;  
     [SerializeField] [Range(-360, 0)] private float yMinAngleLimit = -20f;  
     [SerializeField] [Range(0, 360)] private float yMaxAngleLimit = 80f;
 
@@ -67,18 +67,18 @@ public class CameraOrbit : MonoBehaviour
                     isFocusing = false;
                 }
 
-                if (Input.GetMouseButton(2))
-                {
-                    Vector3 mouseDelta = Input.mousePosition - lastMousePosition;
-                    Vector3 translation = (transform.right * -mouseDelta.x + transform.up * -mouseDelta.y) * panSpeed * Time.deltaTime;
-                    panOffset += translation;
-                    isFocusing = false;
-                }
+                //if (Input.GetMouseButton(2))
+                //{
+                //    Vector3 mouseDelta = Input.mousePosition - lastMousePosition;
+                //    Vector3 translation = (transform.right * -mouseDelta.x + transform.up * -mouseDelta.y) * panSpeed * Time.deltaTime;
+                //    panOffset += translation;
+                //    isFocusing = false;
+                //}
 
-                if (Input.GetKeyDown(KeyCode.F))
-                {    
-                    StartFocus();
-                }
+                //if (Input.GetKeyDown(KeyCode.F))
+                //{    
+                //    StartFocus();
+                //}
 
                 distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, minZoomDistance, maxZoomDistance);
 

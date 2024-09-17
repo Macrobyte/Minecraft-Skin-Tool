@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SkinToolEnums;
 
 public class ModelControlTool : MonoBehaviour
 {
@@ -63,6 +64,6 @@ public class ModelControlTool : MonoBehaviour
 
     private void ChangeModel(float sliderValue)
     {
-       PlayerModelHandler.Instance.ChangeModel((PlayerModelHandler.Model)sliderValue);
+       PlayerModelHandler.Instance.ChangeModel((Model)sliderValue);
     }
 }
