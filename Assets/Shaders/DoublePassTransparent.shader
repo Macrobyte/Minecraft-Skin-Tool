@@ -41,7 +41,7 @@ Shader "Custom/DoublePassTransparent"
 
             fixed4 frag(v2f i) : SV_Target {
                 fixed4 color = tex2D(_MainTex, i.uv) * _Color;
-                if (color.a < 0.1) discard; // Adjust the threshold as needed
+                if (color.a < 0.1) discard;
                 return color;
             }
             ENDCG
@@ -84,7 +84,7 @@ Shader "Custom/DoublePassTransparent"
 
             fixed4 frag(v2f i) : SV_Target {
                 fixed4 color = tex2D(_MainTex, i.uv) * _Color;
-                if (color.a < 0.1) discard; // Adjust the threshold as needed
+                if (color.a < 0.1) discard; 
                 return color;
             }
             ENDCG

@@ -7,16 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Leggings_Material
-  m_Shader: {fileID: 4800000, guid: 3cee99f860a840a4595ca42eaf995aa0, type: 3}
-  m_Parent: {fileID: 2100000, guid: e671d89674ae03e40b2b79bd7952bc49, type: 2}
+  m_Name: Out
+  m_Shader: {fileID: 4800000, guid: 6304828889004554eb03778322ce9d04, type: 3}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2001
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -24,11 +24,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b43c8a4ffca45b848aa39dea83e13ecd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7670301ac19f65f4ba55d52f6857a14d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _GridThickness: 0.02
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GridColor: {r: 0.6981132, g: 0.6618903, b: 0.6618903, a: 1}
+    - _GridSize: {r: 64, g: 64, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
