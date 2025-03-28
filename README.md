@@ -2,7 +2,7 @@
 
 ## Overview
 
-**MST** is a lightweight application designed to preview **Minecraft skins** quickly and easily. It's currently in **Early Access Beta**, so feedback and suggestions are welcome to help improve it further!
+**MST** is a lightweight application designed to preview **Minecraft skins** quickly and easily. It's currently in **Early Access**, so feedback and suggestions are welcome to help improve it further!
 
 ---
 
