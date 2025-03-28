@@ -1,6 +1,6 @@
 Skin Previewer Tool (Beta)
 
-This tool allows you to preview Minecraft skins and is currently in its Early Access Beta phase. Your feedback is greatly appreciated for improvements and potential new features!
+This tool allows you to preview Minecraft skins and is currently in Early Access. Your feedback is greatly appreciated for improvements and potential new features!
 
 Features:
 
@@ -17,3 +17,22 @@ Features:
 - Change animations to preview your skin with more detail.
 - Preview your skin with different armor types.
 - Feel free to clone the repository, test it out, and share your feedback!
+
+## 🎯 Roadmap & Planned Features
+- 🖌️ **Custom Skin Painting & Editing**
+    Draw, paint, and edit your Minecraft skins directly inside the tool with a simple, user-friendly interface.
+    
+- 🔐 **Further** **Mojang API Integration**
+    Log in with your Minecraft account to fetch your current skin and upload new ones directly from the app.
+  
+- 📤 **Direct Skin Uploading**
+    Seamlessly upload your freshly painted skin to your Minecraft account without leaving the app.
+    
+- 🖼️ **Drag & Drop Support**
+    Quickly load `.png` skin files by dragging them into the window.
+    
+- 🎥 **Screenshot Tool**
+    Capture and save high-quality screenshots of your skin preview.
+    
+- 🌄 **Custom Background & Lighting**
+    Change the background color and adjust lighting for better skin visibility.
