@@ -25,6 +25,10 @@ Lightweight application designed to preview **Minecraft skins** quickly and easi
 - **Animations**: Choose from different animations to see how the skin looks in motion.
 - **Armor Preview**: Toggle various armor sets to preview how they look over your skin.
 
+## Screenshots
+![image](https://github.com/user-attachments/assets/ab3670f2-b6f8-4bc3-aa49-7b5ff68d0098)
+
+
 ---
 
 ## Roadmap & Planned Features
