@@ -15,10 +15,27 @@ public class ToggleButton : MonoBehaviour
 
     public Action<bool> onToggle;
 
+    public enum ToggleType { Slide, Checkbox }
+
+    public ToggleType toggleType;
+
+    public Sprite onSprite;
+    public Sprite offSprite;
+
 
     public void Start()
     {
-        button.onClick.AddListener(ButtonToggle);
+        switch(toggleType)
+        {
+            case ToggleType.Slide:
+                button.onClick.AddListener(ButtonToggleSlide);
+                break;
+            case ToggleType.Checkbox:
+                button.onClick.AddListener(ButtonToggleCheckbox);
+                return;
+        }
+
+        onSprite = this.GetComponent<Image>().sprite;
 
         startPos = button.transform.localPosition.x;
 
@@ -26,7 +43,7 @@ public class ToggleButton : MonoBehaviour
 
     }
 
-    private void ButtonToggle()
+    private void ButtonToggleSlide()
     {
         // Toggle the button
         isOn = !isOn;
@@ -43,5 +60,22 @@ public class ToggleButton : MonoBehaviour
         {
             button.transform.localPosition = new Vector3(startPos, 0, 0);
         }
+    }
+
+    private void ButtonToggleCheckbox()
+    {
+        // Toggle the button
+        isOn = !isOn;
+
+        // Call the onToggle event
+        onToggle?.Invoke(isOn);
+
+        SwapSprite(isOn);
+
+    }
+
+    private void SwapSprite(bool state)
+    {
+        GetComponent<Image>().sprite = state ? onSprite : offSprite;
     }
 }

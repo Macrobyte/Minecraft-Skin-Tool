@@ -28,7 +28,6 @@ public class ModelControlTool : MonoBehaviour
 
     private void Start()
     {            
-
         animationSlider.onValueChanged.AddListener(ChangeAnimation);
 
         modelSlider.onValueChanged.AddListener(ChangeModel);

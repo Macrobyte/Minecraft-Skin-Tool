@@ -11,9 +11,10 @@ public class PlayerModelHandler : MonoBehaviour
 
     [Space(5)]
     [Category("Shader and Materials", TextAnchor.MiddleCenter)]
-    [Space(10)]
+    [Space(5)]
 
     [SerializeField] private Shader texturesShader;
+
     [Header("Skin")]
     [SerializeField] private Material innerSkinMaterial;
     [SerializeField] private Material outerSkinMaterial;
@@ -28,33 +29,16 @@ public class PlayerModelHandler : MonoBehaviour
 
     [Space(10)]
     [Divider(4, 88, 88, 88, 0.5f)]
-    [Category("Model Info", TextAnchor.MiddleCenter)]
-
-    [Header("Armor")]
-    [SerializeField, ReadOnly] private GameObject[] allArmor;
-
-    [Header("Arms")]
-    [SerializeField, ReadOnly] private GameObject[] steveArms;
-    [SerializeField, ReadOnly] private GameObject[] alexArms;
-
-
-    [Space(10)]
-    [Divider(4, 88, 88, 88, 0.5f)]
     [Category("Skin", TextAnchor.MiddleCenter)]
-    [Space(10)]
+    [Space(5)]
 
     [SerializeField] private Texture2D defaultSkin;
     [SerializeField] private Texture2D currentSkin;
 
     [Space(10)]
+    [Divider(4, 88, 88, 88, 0.5f)]
     [Category("Armor", TextAnchor.MiddleCenter)]
-    [Space(10)]
-
-    [Header("Armor Inventory")]
-    [SerializeField] private List<Armor> Helmets;
-    [SerializeField] private List<Armor> Chestplates;
-    [SerializeField] private List<Armor> Leggings;
-    [SerializeField] private List<Armor> Boots;
+    [Space(5)]
 
     [Header("Equiped Armor")]
     [SerializeField, ReadOnly] private Armor equippedHelmet;
@@ -62,15 +46,31 @@ public class PlayerModelHandler : MonoBehaviour
     [SerializeField, ReadOnly] private Armor equippedLeggings;
     [SerializeField, ReadOnly] private Armor equippedBoots;
 
+    // If a new armor piece is released, or custom armor making tool in future is made.
+    // Add the new armor to its respective list and it will be automatically added to the inventory and can be equipped by the user.
+    // The first item in the list will be equipped by default on start.
+    [Header("Armor Inventory")]
+    [SerializeField] private List<Armor> Helmets;
+    [SerializeField] private List<Armor> Chestplates;
+    [SerializeField] private List<Armor> Leggings;
+    [SerializeField] private List<Armor> Boots;
+
     public Action<Armor> onArmorEquipped;
 
     [Space(10)]
     [Divider(4, 88, 88, 88, 0.5f)]
     [Category("Model States", TextAnchor.MiddleCenter)]
-    
+    [Space(5)]
+
     [SerializeField] private Model currentModel = Model.Steve;
- 
     [SerializeField, ReadOnly] private Animator playerModelAnimator;
+
+    [Header("Armor")]
+    [SerializeField, ReadOnly] private GameObject[] allArmor;
+
+    [Header("Arms")]
+    [SerializeField, ReadOnly] private GameObject[] steveArms;
+    [SerializeField, ReadOnly] private GameObject[] alexArms;
 
     public enum AnimationState
     {
