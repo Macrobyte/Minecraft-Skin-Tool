@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PaintTester : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class PaintTester : MonoBehaviour
 {
     public Color32 color;
     
@@ -44,17 +44,6 @@ public class PaintTester : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.T))
-        //{
-        //    Texture2D originalTexture = modelHandler.GetDefaultSkin();
-
-        //    CopyTexture(originalTexture);
-
-        //    modelHandler.ApplyTexture(paintTexture);
-        //}
-            
-
-
         if (Input.GetKey(KeyCode.LeftControl))
         {
             if (Input.GetKeyDown(KeyCode.Z))
@@ -73,38 +62,13 @@ public class PaintTester : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            isPainting = true;
-            _currentStrokePositions = new List<PixelData>();
-            Paint(selectedPaintTool, Input.mousePosition);
-            Debug.Log("Stroke Start");
-        }
+        OnPointerDown();
+        OnPointerUp();
+        OnDrag();
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            isPainting = false;
+        
 
-            if (_currentStrokePositions.Count > 0)
-            {
-                var strokeData = _currentStrokePositions
-                    .Select(p => new PixelData(
-                        p.Position,
-                        p.OriginalColor,
-                        selectedPaintTool == PaintTool.Eraser ? Color.clear : color))
-                    .ToList();
-
-                _commandManager.ExecuteCommand(new PaintCommand(paintTexture, strokeData));
-                Debug.Log("Stroke End");
-            }
-
-            _currentStrokePositions = null;
-        }
-
-        if (Input.GetMouseButton(0) && isPainting)
-        {
-            Paint(selectedPaintTool, Input.mousePosition);
-        }
+        
 
 
 
@@ -158,6 +122,7 @@ public class PaintTester : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 
                     _currentStrokePositions.Add(new PixelData(pixelPosition, originalColor,appliedColor));
                     paintTexture.SetPixel(x, y, appliedColor);
+
                     paintTexture.Apply();
                     modelHandler.ApplyTexture(paintTexture);
                 }
@@ -200,52 +165,45 @@ public class PaintTester : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         return paintTexture.GetPixel(x, y) == targetColor;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown()
     {
-        if(eventData.button == PointerEventData.InputButton.Right || eventData.button == PointerEventData.InputButton.Middle)
-            return;
-        
-        isPainting = true;
-        _currentStrokePositions = new List<PixelData>();
-        Paint(selectedPaintTool, eventData.position);
-        Debug.Log("Stroke Start");
+        if (Input.GetMouseButtonDown(0))
+        {
+            isPainting = true;
+            _currentStrokePositions = new List<PixelData>();
+            Paint(selectedPaintTool, Input.mousePosition);
+            Debug.Log("Stroke Start");
+        }
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp()
     {
-        if(eventData.button == PointerEventData.InputButton.Right)
-            return;
-        
-        isPainting = false;
-
-        List<PixelData> strokeData = new List<PixelData>();
-        foreach (var pixel in _currentStrokePositions)
+        if (Input.GetMouseButtonUp(0))
         {
-            Color appliedColor = selectedPaintTool == PaintTool.Eraser ? Color.clear : color;
-            strokeData.Add(new PixelData(pixel.Position, pixel.OriginalColor, appliedColor));
-        }
-        
-        if (_currentStrokePositions.Count > 0)
-        {
-            
-            
-            PaintCommand paintCommand = new PaintCommand(paintTexture, strokeData);
-            _commandManager.ExecuteCommand(paintCommand);
-            
-            Debug.Log("Stroke End");
-        }
+            isPainting = false;
 
-        _currentStrokePositions = null;
+            if (_currentStrokePositions.Count > 0)
+            {
+                var strokeData = _currentStrokePositions
+                    .Select(p => new PixelData(
+                        p.Position,
+                        p.OriginalColor,
+                        selectedPaintTool == PaintTool.Eraser ? Color.clear : color))
+                    .ToList();
+
+                _commandManager.ExecuteCommand(new PaintCommand(paintTexture, strokeData));
+                Debug.Log("Stroke End");
+            }
+
+            _currentStrokePositions = null;
+        }
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public void OnDrag()
     {
-        if(eventData.button == PointerEventData.InputButton.Right || eventData.button == PointerEventData.InputButton.Middle)
-            return;
-        
-        if (isPainting)
+        if (Input.GetMouseButton(0) && isPainting)
         {
-            Paint(selectedPaintTool, eventData.position);
+            Paint(selectedPaintTool, Input.mousePosition);
         }
     }
 }
