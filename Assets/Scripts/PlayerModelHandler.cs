@@ -5,7 +5,7 @@ using CustomAttributes;
 using System;
 using SkinToolEnums;
 
-public class PlayerModelHandler : MonoBehaviour
+public class PlayerModelHandler : MonoBehaviour, IPaintableObject
 {
     public static PlayerModelHandler Instance { get; private set; }
 
@@ -185,7 +185,7 @@ public class PlayerModelHandler : MonoBehaviour
         ChangeModel(model);
 
         currentSkin = skin;
-
+        
         // Apply the skin to the materials of the model
         foreach (Material material in allSkinMaterials)
         {
@@ -439,7 +439,18 @@ public class PlayerModelHandler : MonoBehaviour
         return currentSkin;
     }
 
-    
+    public Texture2D GetDefaultSkin()
+    {
+        return defaultSkin;
+    }
 
-    #endregion
+
+
+
+#endregion
+
+    public void ApplyTexture(Texture2D texture)
+    {
+        ApplySkin(texture);
+    }
 }
