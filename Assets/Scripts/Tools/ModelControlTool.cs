@@ -12,7 +12,7 @@ public class ModelControlTool : MonoBehaviour
 
     [SerializeField] private Slider animationSlider;
 
-    [SerializeField] private ToggleButton toggleArmor;
+    [SerializeField] private ToggleButton toggleButton;
 
     [Serializable]
     private struct ArmorSlot
@@ -32,7 +32,7 @@ public class ModelControlTool : MonoBehaviour
 
         modelSlider.onValueChanged.AddListener(ChangeModel);
 
-        toggleArmor.onToggle += PlayerModelHandler.Instance.ToggleArmor;
+        toggleButton.onToggle += PlayerModelHandler.Instance.ToggleArmor;
 
         foreach(ArmorSlot slot in armorSlots)
         {

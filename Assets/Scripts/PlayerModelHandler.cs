@@ -65,6 +65,9 @@ public class PlayerModelHandler : MonoBehaviour, IPaintableObject
     [SerializeField] private Model currentModel = Model.Steve;
     [SerializeField, ReadOnly] private Animator playerModelAnimator;
 
+    [Header("Overlay")]
+    [SerializeField, ReadOnly] private GameObject[] skinOverlays;
+
     [Header("Armor")]
     [SerializeField, ReadOnly] private GameObject[] allArmor;
 
@@ -104,6 +107,8 @@ public class PlayerModelHandler : MonoBehaviour, IPaintableObject
         FindAllArmorMaterials();
 
         FindAllArmorObjects();
+
+        FindAllOverlayObjects();
 
         ApplySkin(defaultSkin);
 
@@ -172,6 +177,19 @@ public class PlayerModelHandler : MonoBehaviour, IPaintableObject
         else
         {
             ChangeModel(Model.Steve);
+        }
+    }
+
+    private void FindAllOverlayObjects()
+    {
+        skinOverlays = GameObject.FindGameObjectsWithTag("Overlay");
+    }
+
+    public void ToggleOverlay(bool state)
+    {
+        foreach (GameObject overlay in skinOverlays)
+        {
+            overlay.SetActive(state);
         }
     }
 
