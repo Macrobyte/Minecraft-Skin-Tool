@@ -18,14 +18,24 @@ public class PlayerModelHandler : MonoBehaviour, IPaintableObject
     [Header("Skin")]
     [SerializeField] private Material innerSkinMaterial;
     [SerializeField] private Material outerSkinMaterial;
-    [SerializeField, ReadOnly] private List<Material> allSkinMaterials = new List<Material>();
+    private List<Material> allSkinMaterials = new List<Material>();
 
     [Header("Armor")]
     [SerializeField] private Material helmetMaterial;
     [SerializeField] private Material chestplateMaterial;
     [SerializeField] private Material leggingsMaterial;
     [SerializeField] private Material bootsMaterial;
-    [SerializeField, ReadOnly] private List<Material> allArmorMaterials = new List<Material>();
+    private List<Material> allArmorMaterials = new List<Material>();
+
+    [Space(10)]
+    [Divider(4, 88, 88, 88, 0.5f)]
+    [Category("Paint Grid Settings", TextAnchor.MiddleCenter)]
+    [Space(5)]
+
+    [SerializeField] private bool isGridOn;
+    [SerializeField] private Color gridColor = new Color(1, 1, 1, 0.5f);
+    [SerializeField] private float gridLineWidth = 1f;
+
 
     [Space(10)]
     [Divider(4, 88, 88, 88, 0.5f)]
@@ -57,6 +67,7 @@ public class PlayerModelHandler : MonoBehaviour, IPaintableObject
 
     public Action<Armor> onArmorEquipped;
 
+    // For debugging
     [Space(10)]
     [Divider(4, 88, 88, 88, 0.5f)]
     [Category("Model States", TextAnchor.MiddleCenter)]
@@ -464,6 +475,32 @@ public class PlayerModelHandler : MonoBehaviour, IPaintableObject
 
 
 
+
+#endregion
+
+#region Grid Settings
+
+    public void ToggleGrid(bool state)
+    {
+        if (state)
+        {
+            isGridOn = true;
+
+            foreach (Material material in allSkinMaterials)
+            {
+                material.SetColor("_GridColor", gridColor);
+            }
+        }
+        else
+        {
+            isGridOn = false;
+
+            foreach (Material material in allSkinMaterials)
+            {
+                material.SetColor("_GridColor", Color.clear);
+            }
+        }
+    }
 
 #endregion
 

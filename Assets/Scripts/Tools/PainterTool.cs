@@ -3,13 +3,23 @@ using UnityEngine;
 
 public class PainterTool : MonoBehaviour
 {
-    [SerializeField] private ToggleButton toggleButton;
+    [SerializeField] private ToggleButton toggleSkinOverlay;
+    [SerializeField] private ToggleButton toggleGrid;
+
 
     private void Start()
     {
-        toggleButton.onToggle += ToggleSkinOverlay;
+        toggleSkinOverlay.onToggle += ToggleSkinOverlay;
 
-        toggleButton.Toggle();
+        toggleGrid.onToggle += ToggleGrid;
+
+        toggleSkinOverlay.Toggle();
+        toggleGrid.Toggle();
+    }
+
+    private void ToggleGrid(bool obj)
+    {
+        PlayerModelHandler.Instance.ToggleGrid(obj);
     }
 
     private void ToggleSkinOverlay(bool obj)

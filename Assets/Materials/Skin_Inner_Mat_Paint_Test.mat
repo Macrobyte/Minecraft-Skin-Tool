@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skin_Inner_Mat_Paint_Test
-  m_Shader: {fileID: 4800000, guid: 6304828889004554eb03778322ce9d04, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8c02afd1ff6d4f04b91b1fcc160f65a0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -68,7 +68,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GridThickness: 0.05
+    - _GridThickness: 0.02
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
