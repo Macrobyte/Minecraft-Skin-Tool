@@ -71,7 +71,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -307,28 +307,6 @@ TextureImporter:
       bones: []
       spriteID: a7fe62d728f25c544b6e7340e9e977bd
       internalID: -667269910
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pixel UI pack 1_16
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 416
-        width: 24
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 28db9d20761427d4f871bbebf57d7aa7
-      internalID: -464186239
       vertices: []
       indices: 
       edges: []
@@ -3722,28 +3700,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pixel UI pack 1_303
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 400
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 315a0eb9eb4c101488146a14321dd499
-      internalID: 196179898
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Pixel UI pack 1_304
       rect:
         serializedVersion: 2
@@ -3951,7 +3907,7 @@ TextureImporter:
         height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 1, z: 3, w: 1}
       customData: 
       outline: []
       physicsShape: []

@@ -8,7 +8,7 @@ public class SVImageControl : MonoBehaviour, IDragHandler, IPointerClickHandler
 
     private RawImage SVImage;
 
-    public ColorPickerControl colorPickerControl;
+    public ColorPickerController colorPickerControl;
 
     private RectTransform rectTransform;
     private RectTransform pickerTransform;

@@ -2611,14 +2611,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -201365127, guid: a0e667d3f74a4eb488d405ea546ceece, type: 3}
+  m_Sprite: {fileID: -1299847618, guid: a0e667d3f74a4eb488d405ea546ceece, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2645,7 +2645,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 481260961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0998ea8bff664ad4fa6e5190f7bab1fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 10ad11ddfd42df64a8ef7219babca20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorPickerControl
   currentHue: 0
@@ -2657,7 +2657,7 @@ MonoBehaviour:
   hueSlider: {fileID: 2087499832}
   hexInputField: {fileID: 1124541126}
   colorPicked: {r: 0, g: 0, b: 0, a: 0}
-  paintTester: {fileID: 903851339}
+  paintTester: {fileID: 0}
 --- !u!1 &486162758
 GameObject:
   m_ObjectHideFlags: 0
@@ -3127,10 +3127,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2146394615}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -24, y: -24}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 2.789978}
+  m_SizeDelta: {x: 44, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &545846208
 MonoBehaviour:
@@ -3152,7 +3152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1441752996111222516, guid: e91878a1466ae1f41bb8b751236edf95, type: 3}
+  m_Sprite: {fileID: -1220158137, guid: e75c499d88b20a041880b9a3629d5ff6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3962,10 +3962,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1149519766}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -24, y: -24}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 2.2600098}
+  m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &714286253
 MonoBehaviour:
@@ -4881,7 +4881,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -201365127, guid: a0e667d3f74a4eb488d405ea546ceece, type: 3}
+  m_Sprite: {fileID: -1299847618, guid: a0e667d3f74a4eb488d405ea546ceece, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5549,12 +5549,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5cc5fffd42337a44a66be274883c9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PaintTester
-  color:
+  currentColor:
     serializedVersion: 2
-    rgba: 4278190080
-  modelHandler: {fileID: 0}
+    rgba: 0
   isPainting: 0
-  paintTexture: {fileID: 0}
   selectedPaintTool: 0
 --- !u!114 &903851340 stripped
 MonoBehaviour:
@@ -5703,7 +5701,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 969133960, guid: a0e667d3f74a4eb488d405ea546ceece, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6152,10 +6150,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 80873572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -24, y: -24}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.5499878}
+  m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &973137504
 MonoBehaviour:
@@ -6418,10 +6416,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 507648040}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -24, y: -24}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.789978}
+  m_SizeDelta: {x: 36, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026012954
 MonoBehaviour:
@@ -7278,7 +7276,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481260965}
+        m_TargetAssemblyTypeName: ColorPickerControl, Assembly-CSharp
+        m_MethodName: OnTextInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
@@ -7652,8 +7662,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 42.863, y: -492.1}
-  m_SizeDelta: {x: 60, y: 974.6176}
+  m_AnchoredPosition: {x: 42.863, y: -543.7529}
+  m_SizeDelta: {x: 60, y: 1077.923}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1222213644
 MonoBehaviour:
@@ -10791,11 +10801,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3363852685977695371, guid: 626a4e7cd5aa09a48a346e0ec7b17ac3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -898.3501
+      value: -651
       objectReference: {fileID: 0}
     - target: {fileID: 3363852685977695371, guid: 626a4e7cd5aa09a48a346e0ec7b17ac3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 36.002
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3363852685977695371, guid: 626a4e7cd5aa09a48a346e0ec7b17ac3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11036,7 +11046,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 969133960, guid: a0e667d3f74a4eb488d405ea546ceece, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

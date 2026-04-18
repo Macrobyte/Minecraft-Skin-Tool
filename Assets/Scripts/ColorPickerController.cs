@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class ColorPickerControl : MonoBehaviour
+public class ColorPickerController : MonoBehaviour
 {
     public float currentHue;
     public float currentSaturation;
@@ -22,8 +23,7 @@ public class ColorPickerControl : MonoBehaviour
 
     public Color colorPicked;
 
-    // TODO - FOR DEBUGGING PURPOSES ONLY, REMOVE LATER
-    public PaintTester paintTester;
+    public Action<Color> onColorChanged;
 
 
     private void Start()
@@ -124,10 +124,11 @@ public class ColorPickerControl : MonoBehaviour
 
         outputTexture.Apply();
 
+        hexInputField.text = ColorUtility.ToHtmlStringRGB(currentColor);
+
         colorPicked = currentColor;
 
-        // TODO - FOR DEBUGGING PURPOSES ONLY, REMOVE LATER
-        paintTester.color = colorPicked;
+        onColorChanged?.Invoke(colorPicked);
     }
 
     public void SetSV(float s, float v)
@@ -160,5 +161,28 @@ public class ColorPickerControl : MonoBehaviour
         SVTexture.Apply();
 
         UpdateOutputImage();
+    }
+
+
+    public void OnTextInput()
+    {
+        if(hexInputField.text.Length < 6)
+        {
+            return;
+        }
+
+        Color newColor;
+
+        if(ColorUtility.TryParseHtmlString("#" + hexInputField.text, out newColor))
+        {
+            Color.RGBToHSV(newColor, out currentHue, out currentSaturation, out currentyValue);
+
+            hueSlider.value = currentHue;
+
+            hexInputField.text = "";
+
+            UpdateOutputImage();
+
+        }
     }
 }
