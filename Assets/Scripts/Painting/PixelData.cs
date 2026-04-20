@@ -12,4 +12,5 @@ public class PixelData
         OriginalColor = originalColor;
         AppliedColor = appliedColor;
     }
+
 }
