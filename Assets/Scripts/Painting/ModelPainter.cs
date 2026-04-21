@@ -26,6 +26,8 @@ public class ModelPainter : MonoBehaviour
     private List<PixelData> _currentStrokePositions;
     private ColorPickerController colorPickerControl;
 
+    private Camera mainCamera;
+
     private void Awake()
     {
         colorPickerControl = FindFirstObjectByType<ColorPickerController>();
@@ -33,6 +35,8 @@ public class ModelPainter : MonoBehaviour
         colorPickerControl.onColorChanged += ChangeColor;
 
         _commandManager = new CommandManager(10000);
+
+        mainCamera = Camera.main;
     }
 
     private void Start()
@@ -76,7 +80,8 @@ public class ModelPainter : MonoBehaviour
 
     private void Paint(PaintTool tool, Vector2 position)
     {
-        Ray ray = Camera.main.ScreenPointToRay(position);
+        Ray ray = mainCamera.ScreenPointToRay(position);
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector2 uv = hit.textureCoord;
@@ -107,23 +112,18 @@ public class ModelPainter : MonoBehaviour
 
                     break;
                 case PaintTool.BucketTool:
-
-                    List<PixelData> strokeData = BucketFill(pixelPosition);
-
-                    if(strokeData.Count > 0)
-                    {
-                        _commandManager.ExecuteCommand(new PaintCommand(paintTexture, strokeData));
-                    }
-
+                    _currentStrokePositions.AddRange(BucketFill(pixelPosition));
                     break;
                 case PaintTool.FaceFill:
                     break;
 
             }
 
-            paintTexture.Apply();
-
-            PlayerModelHandler.Instance.ApplyTexture(paintTexture);
+            if (_currentStrokePositions != null && _currentStrokePositions.Count > 0)
+            {
+                paintTexture.Apply();
+                PlayerModelHandler.Instance.ApplyTexture(paintTexture);
+            }
         }
     }
 
@@ -133,7 +133,7 @@ public class ModelPainter : MonoBehaviour
 
         Color appliedColor = currentColor;
 
-        paintTexture.SetPixel(pixelPos.x, pixelPos.y, appliedColor);
+        paintTexture.SetPixel(pixelPos.x, pixelPos.y, appliedColor); 
 
         return new PixelData(pixelPos, originalColor, appliedColor);
     }
@@ -143,8 +143,6 @@ public class ModelPainter : MonoBehaviour
         Color originalColor = paintTexture.GetPixel(pixelPos.x, pixelPos.y);
 
         Color appliedColor = Color.clear;
-
-        _currentStrokePositions.Add(new PixelData(pixelPos, originalColor, appliedColor));
 
         paintTexture.SetPixel(pixelPos.x, pixelPos.y, appliedColor);
 
@@ -219,12 +217,10 @@ public class ModelPainter : MonoBehaviour
         {
             isPainting = false;
 
-            if (_currentStrokePositions.Count > 0)
+
+            if (_currentStrokePositions != null && _currentStrokePositions.Count > 0)
             {
-                var strokeData = _currentStrokePositions.Select(p => new PixelData(p.Position, p.OriginalColor, p.AppliedColor)).ToList();
-
-                _commandManager.ExecuteCommand(new PaintCommand(paintTexture, strokeData));
-
+                _commandManager.ExecuteCommand(new PaintCommand(paintTexture, _currentStrokePositions));
             }
 
             _currentStrokePositions = null;
@@ -237,6 +233,11 @@ public class ModelPainter : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && isPainting)
         {
+            if(selectedPaintTool == PaintTool.BucketTool)
+            {
+                return;
+            }
+
             Paint(selectedPaintTool, Input.mousePosition);
         }
     }
