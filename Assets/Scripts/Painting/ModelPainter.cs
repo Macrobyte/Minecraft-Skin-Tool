@@ -2,8 +2,9 @@ using CustomAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ModelPainter : MonoBehaviour
+public class ModelPainter : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Space(5)]
     [Category("Painting Settings", TextAnchor.MiddleCenter)]
@@ -27,6 +28,8 @@ public class ModelPainter : MonoBehaviour
     private ColorPickerController colorPickerControl;
 
     private Camera mainCamera;
+
+    public bool canPaint = true;
 
     private void Awake()
     {
@@ -80,11 +83,18 @@ public class ModelPainter : MonoBehaviour
 
     private void Paint(PaintTool tool, Vector2 position)
     {
+        if (!canPaint)
+        {
+            return;
+        }
+
         Ray ray = mainCamera.ScreenPointToRay(position);
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector2 uv = hit.textureCoord;
+
+            
             
             int uvX = Mathf.Clamp(Mathf.FloorToInt(uv.x * paintTexture.width), 0, paintTexture.width - 1);
             int uvY = Mathf.Clamp(Mathf.FloorToInt(uv.y * paintTexture.height), 0, paintTexture.height - 1);
@@ -206,9 +216,10 @@ public class ModelPainter : MonoBehaviour
             _currentStrokePositions = new List<PixelData>();
 
             Paint(selectedPaintTool, Input.mousePosition);
+            
+            Debug.Log("Stroke Start");
         }
         
-        Debug.Log("Stroke Start");
     }
 
     public void OnPointerUp()
@@ -224,9 +235,10 @@ public class ModelPainter : MonoBehaviour
             }
 
             _currentStrokePositions = null;
+        
+            Debug.Log("Stroke End");
         }
 
-        Debug.Log("Stroke End");
     }
 
     public void OnDrag()
@@ -246,6 +258,37 @@ public class ModelPainter : MonoBehaviour
     private void ChangeColor(Color color)
     {
         currentColor = color;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log(eventData.pointerEnter.gameObject.name);
+
+        if(eventData.pointerEnter.gameObject.CompareTag("Window"))
+        {
+
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (eventData.pointerEnter.gameObject.CompareTag("Window"))
+        {
+            canPaint = false;
+
+            Debug.Log("Entered Window");
+        }
+
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if(eventData.fullyExited)
+        {
+            canPaint = true;
+
+            Debug.Log("Left Window");
+        }
     }
 }
 

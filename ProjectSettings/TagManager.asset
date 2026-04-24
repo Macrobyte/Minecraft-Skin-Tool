@@ -8,6 +8,7 @@ TagManager:
   - Steve Arm
   - Armor
   - Overlay
+  - Window
   layers:
   - Default
   - TransparentFX

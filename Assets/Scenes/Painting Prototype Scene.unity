@@ -10738,6 +10738,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Painter Tool
       objectReference: {fileID: 0}
+    - target: {fileID: 1967201923788046003, guid: 626a4e7cd5aa09a48a346e0ec7b17ac3, type: 3}
+      propertyPath: m_TagString
+      value: Window
+      objectReference: {fileID: 0}
     - target: {fileID: 3363852685977695371, guid: 626a4e7cd5aa09a48a346e0ec7b17ac3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
