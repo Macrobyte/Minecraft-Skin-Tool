@@ -808,7 +808,7 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113643276}
   m_Enabled: 1
-  serializedVersion: 12
+  serializedVersion: 13
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
@@ -860,7 +860,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0
+  m_ShapeRadius: 0
   m_ShadowAngle: 0
   m_LightUnit: 1
   m_LuxAtDistance: 1
@@ -5553,6 +5553,7 @@ MonoBehaviour:
     rgba: 0
   isPainting: 0
   selectedPaintTool: 0
+  canPaint: 1
 --- !u!114 &903851340 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7612170481568862073, guid: 626a4e7cd5aa09a48a346e0ec7b17ac3, type: 3}
@@ -8955,8 +8956,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -275.55}
-  m_SizeDelta: {x: -273.014, y: -866.734}
+  m_AnchoredPosition: {x: -0.0005187988, y: -277.10004}
+  m_SizeDelta: {x: -273.01, y: -928.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1530201224
 MonoBehaviour:
@@ -9084,8 +9085,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -325.633}
-  m_SizeDelta: {x: -273.014, y: -868.003}
+  m_AnchoredPosition: {x: 0.0014953613, y: -332.8}
+  m_SizeDelta: {x: -273.014, y: -928.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540324103
 MonoBehaviour:
@@ -9732,6 +9733,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
